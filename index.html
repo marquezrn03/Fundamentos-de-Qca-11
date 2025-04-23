@@ -1,1 +1,445 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicis Resolts: Àcid-Base i Solubilitat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #f8fafc; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151; font-size: 0.875rem; }
+        input[type="number"], select { padding: 0.5rem; border: 1px solid #D1D5DB; border-radius: 0.375rem; width: 100%; }
+        button { background-color: #38bdf8; color: #0c4a6e; padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 600; transition: background-color 0.2s; display: inline-block; text-align: center; border: none; cursor: pointer;}
+        button:hover { background-color: #0ea5e9; }
+        h1 { color: #111827; font-size: 1.875rem; line-height: 2.25rem; font-weight: 700;}
+        h2 { color: #0c4a6e; font-size: 1.6rem; line-height: 2.1rem; font-weight: 700; border-bottom: 3px solid #7dd3fc; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        h3 { color: #0369a1; font-size: 1.25rem; line-height: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid #bae6fd; padding-bottom: 0.25rem; }
+        h4 { color: #075985; font-size: 1.1rem; line-height: 1.6rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem;}
+        p, li { color: #374151; line-height: 1.75; margin-bottom: 1rem; }
+        strong { color: #1F2937; font-weight: 600; }
+        .section-bg-light { background-color: #f0f9ff; }
+        .section-bg-white { background-color: #FFFFFF; }
+        .interactive-block { margin-top: 1.5rem; margin-bottom: 1.5rem; padding: 1.5rem; border: 1px solid #e0f2fe; border-radius: 0.5rem; background-color: #ffffff; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); }
+        .interactive-block-light { margin-top: 1.5rem; margin-bottom: 1.5rem; padding: 1.5rem; border: 1px solid #e0f2fe; border-radius: 0.5rem; background-color: #f0f9ff; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); }
+        .output-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .output-item { background-color: #e0f2fe; border: 1px solid #bae6fd; border-radius: 0.375rem; padding: 0.75rem; text-align: center; }
+        .output-label { display: block; font-size: 0.8rem; color: #075985; margin-bottom: 0.25rem; }
+        .output-value { font-size: 1.1rem; font-weight: 600; color: #0c4a6e; word-wrap: break-word; }
+        .output-unit { font-size: 0.75rem; color: #0369a1; margin-left: 0.25rem;}
+        .error-text { color: #ef4444; font-weight: bold; }
+        .math-block { margin: 1.5rem 0; padding: 1rem; background-color: #f0f9ff; border-left: 4px solid #38bdf8; font-size: 1.1rem; overflow-x: auto;}
+        .footer-attribution { margin-top: 1.5rem; font-size: 0.875rem; line-height: 1.25rem; color: #6b7280; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.9rem; }
+        th, td { border: 1px solid #e0f2fe; padding: 0.5rem; text-align: left; }
+        th { background-color: #f0f9ff; font-weight: 600; color: #0369a1; }
+        tbody tr:nth-child(even) { background-color: #f0f9ff; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 antialiased">
+
+    <header class="bg-gradient-to-r from-sky-600 to-cyan-600 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-2xl md:text-3xl font-bold">Exercicis Resolts: Equilibri Àcid-Base i Solubilitat</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+
+        <section id="ex95" class="mb-12 p-6 rounded-lg shadow-lg section-bg-white">
+            <h2 class="text-sky-700 border-b-2 border-sky-200 pb-2 mb-6">Exercici 95: pH d'una dissolució de lleixiu (NaClO)</h2>
+            <p><strong>Enunciat:</strong> El lleixiu està composat principalment d'hipoclorit de sodi (NaClO). Aquest hipoclorit de sodi prové de la reacció de l'àcid hipoclorós (HClO) amb hidròxid de sodi (NaOH). Quin pH tindrà el punt d'equivalència d'aquesta reacció de neutralització? Argumenteu-ho. Calculeu també el pH d'aquesta solució de lleixiu si la concentració de NaClO és 0.2M. \(K_a(\text{HClO}) = 3.0 \times 10^{-8}\).</p>
+
+            <h3>Resolució Pas a Pas</h3>
+            <h4>a) pH al punt d'equivalència</h4>
+            <p>La reacció de neutralització és: \( \text{HClO} + \text{NaOH} \rightarrow \text{NaClO} + \text{H}_2\text{O} \)</p>
+            <p>En el punt d'equivalència, tot l'àcid i tota la base han reaccionat per formar la sal NaClO i aigua. El NaClO és una sal provinent d'un àcid feble (HClO) i una base fort (NaOH). L'ió sodi (Na⁺) és un ió espectador i no reacciona amb l'aigua. L'ió hipoclorit (ClO⁻) és la base conjugada de l'àcid feble HClO i, per tant, reaccionarà amb l'aigua (hidròlisi):</p>
+            <div class="math-block"> $$ \text{ClO}^- + \text{H}_2\text{O} \rightleftharpoons \text{HClO} + \text{OH}^- $$ </div>
+            <p>Com que es generen ions hidròxid (OH⁻), la dissolució resultant en el punt d'equivalència serà <strong>bàsica</strong>, és a dir, <strong>pH > 7</strong>.</p>
+
+            <h4>b) pH d'una dissolució 0.2M de NaClO</h4>
+            <p>Primer, calculem la constant de basicitat (Kb) de l'ió hipoclorit (ClO⁻) a partir de la Ka de l'àcid conjugat (HClO) i la constant iònica de l'aigua (\(K_w = 1.0 \times 10^{-14}\)):</p>
+            <div class="math-block"> $$ K_b(\text{ClO}^-) = \frac{K_w}{K_a(\text{HClO})} = \frac{1.0 \times 10^{-14}}{3.0 \times 10^{-8}} \approx 3.33 \times 10^{-7} $$ </div>
+            <p>Plantegem l'equilibri d'hidròlisi de l'ió ClO⁻, amb una concentració inicial \(C_s = 0.2 \, M\):</p>
+            <table>
+                <thead><tr><th>Equilibri</th><th>\( \text{ClO}^- \)</th><th>\( + \text{H}_2\text{O} \)</th><th>\( \rightleftharpoons \)</th><th>\( \text{HClO} \)</th><th>\( + \text{OH}^- \)</th></tr></thead>
+                <tbody>
+                    <tr><td>Inicial (M)</td><td>0.2</td><td>-</td><td></td><td>0</td><td>0</td></tr>
+                    <tr><td>Canvi (M)</td><td>-x</td><td>-</td><td></td><td>+x</td><td>+x</td></tr>
+                    <tr><td>Equilibri (M)</td><td>0.2 - x</td><td>-</td><td></td><td>x</td><td>x</td></tr>
+                </tbody>
+            </table>
+            <p>Expressem la constant d'equilibri Kb:</p>
+            <div class="math-block"> $$ K_b = \frac{[\text{HClO}][\text{OH}^-]}{[\text{ClO}^-]} = \frac{x \cdot x}{0.2 - x} \approx 3.33 \times 10^{-7} $$ </div>
+            <p>Com que Kb és petita comparada amb la concentració inicial (0.2 M), podem fer l'aproximació \(0.2 - x \approx 0.2\):</p>
+            <div class="math-block"> $$ \frac{x^2}{0.2} \approx 3.33 \times 10^{-7} $$
+            $$ x^2 \approx 0.2 \times 3.33 \times 10^{-7} = 6.66 \times 10^{-8} $$
+            $$ x = \sqrt{6.66 \times 10^{-8}} \approx 2.58 \times 10^{-4} \, M $$ </div>
+            <p>Com que \(x = [\text{OH}^-]\), podem calcular el pOH i després el pH:</p>
+            <div class="math-block"> $$ \text{pOH} = -\log_{10}[\text{OH}^-] = -\log_{10}(2.58 \times 10^{-4}) \approx 3.59 $$
+            $$ \text{pH} = 14 - \text{pOH} = 14 - 3.59 \approx 10.41 $$ </div>
+            <p>(Comprovació de l'aproximació: \(x/0.2 = 2.58 \times 10^{-4} / 0.2 \approx 0.0013\), que és menor del 5%, per tant l'aproximació és vàlida).</p>
+
+            <div class="interactive-block-light">
+                 <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Calculadora Interactiva pH NaClO</h4>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                     <div>
+                         <label for="ex95-conc">Concentració NaClO (M):</label>
+                         <input type="number" id="ex95-conc" value="0.2" step="0.01" min="0.01">
+                     </div>
+                     <div>
+                         <label for="ex95-ka">Ka(HClO):</label>
+                         <input type="number" id="ex95-ka" value="3.0e-8" step="1e-9">
+                     </div>
+                 </div>
+                 <div class="text-center mb-4"><button id="ex95-calc-btn">Calcular pH</button></div>
+                 <div class="output-grid">
+                     <div class="output-item"><span class="output-label">Kb(ClO⁻)</span><span class="output-value" id="ex95-res-kb">3.33e-7</span></div>
+                     <div class="output-item"><span class="output-label">[OH⁻] (M)</span><span class="output-value" id="ex95-res-oh">2.58e-4</span></div>
+                     <div class="output-item"><span class="output-label">pOH</span><span class="output-value" id="ex95-res-poh">3.59</span></div>
+                     <div class="output-item"><span class="output-label">pH</span><span class="output-value" id="ex95-res-ph">10.41</span></div>
+                 </div>
+                 <div id="ex95-error" class="mt-4 text-center text-red-600 font-medium" style="min-height: 1.5rem;"></div>
+            </div>
+        </section>
+
+        <section id="ex97" class="mb-12 p-6 rounded-lg shadow-lg section-bg-light">
+            <h2 class="text-sky-700 border-b-2 border-sky-200 pb-2 mb-6">Exercici 97: pH i Grau d'Hidròlisi de CH₃COONa</h2>
+             <p><strong>Enunciat:</strong> Calculeu el pH i el grau d'hidròlisi d'una dissolució d'acetat de sodi (CH₃COONa) que es produeix de la reacció de l'àcid acètic i l'hidròxid de sodi, sabent que la concentració d'acetat inicial és 0,5 M. \(K_a(\text{àcid acètic}) = 1.8 \times 10^{-5}\).</p>
+
+             <h3>Resolució Pas a Pas</h3>
+             <p>L'acetat de sodi (CH₃COONa) és una sal d'àcid feble (CH₃COOH) i base forta (NaOH). L'ió acetat (CH₃COO⁻) és la base conjugada i s'hidrolitza:</p>
+             <div class="math-block"> $$ \text{CH}_3\text{COO}^- + \text{H}_2\text{O} \rightleftharpoons \text{CH}_3\text{COOH} + \text{OH}^- $$ </div>
+             <p>Calculem la Kb de l'acetat:</p>
+             <div class="math-block"> $$ K_b(\text{CH}_3\text{COO}^-) = \frac{K_w}{K_a(\text{CH}_3\text{COOH})} = \frac{1.0 \times 10^{-14}}{1.8 \times 10^{-5}} \approx 5.56 \times 10^{-10} $$ </div>
+             <p>Plantegem l'equilibri amb concentració inicial \(C_s = 0.5 \, M\):</p>
+             <table>
+                 <thead><tr><th>Equilibri</th><th>\( \text{CH}_3\text{COO}^- \)</th><th>\( + \text{H}_2\text{O} \)</th><th>\( \rightleftharpoons \)</th><th>\( \text{CH}_3\text{COOH} \)</th><th>\( + \text{OH}^- \)</th></tr></thead>
+                 <tbody>
+                     <tr><td>Inicial (M)</td><td>0.5</td><td>-</td><td></td><td>0</td><td>0</td></tr>
+                     <tr><td>Canvi (M)</td><td>-x</td><td>-</td><td></td><td>+x</td><td>+x</td></tr>
+                     <tr><td>Equilibri (M)</td><td>0.5 - x</td><td>-</td><td></td><td>x</td><td>x</td></tr>
+                 </tbody>
+             </table>
+             <p>Expressem Kb i fem l'aproximació \(0.5 - x \approx 0.5\):</p>
+             <div class="math-block"> $$ K_b = \frac{x^2}{0.5 - x} \approx \frac{x^2}{0.5} \approx 5.56 \times 10^{-10} $$
+             $$ x^2 \approx 0.5 \times 5.56 \times 10^{-10} = 2.78 \times 10^{-10} $$
+             $$ x = \sqrt{2.78 \times 10^{-10}} \approx 1.67 \times 10^{-5} \, M $$ </div>
+             <p>Calculem pOH i pH:</p>
+             <div class="math-block"> $$ [\text{OH}^-] = x \approx 1.67 \times 10^{-5} \, M $$
+             $$ \text{pOH} = -\log_{10}(1.67 \times 10^{-5}) \approx 4.78 $$
+             $$ \text{pH} = 14 - \text{pOH} = 14 - 4.78 \approx 9.22 $$ </div>
+             <p>Calculem el grau d'hidròlisi (\(\alpha\)), que és la fracció d'ió acetat que ha reaccionat:</p>
+             <div class="math-block"> $$ \alpha = \frac{x}{C_s} = \frac{1.67 \times 10^{-5}}{0.5} \approx 3.34 \times 10^{-5} $$ </div>
+             <p>El grau d'hidròlisi també es pot expressar en percentatge: \(\alpha \% = \alpha \times 100 \approx 0.00334 \%\).</p>
+
+            <div class="interactive-block">
+                 <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Calculadora Interactiva pH i Hidròlisi CH₃COONa</h4>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                     <div>
+                         <label for="ex97-conc">Concentració CH₃COONa (M):</label>
+                         <input type="number" id="ex97-conc" value="0.5" step="0.05" min="0.01">
+                     </div>
+                     <div>
+                         <label for="ex97-ka">Ka(CH₃COOH):</label>
+                         <input type="number" id="ex97-ka" value="1.8e-5" step="1e-6">
+                     </div>
+                 </div>
+                 <div class="text-center mb-4"><button id="ex97-calc-btn">Calcular pH i α</button></div>
+                 <div class="output-grid">
+                     <div class="output-item"><span class="output-label">Kb(CH₃COO⁻)</span><span class="output-value" id="ex97-res-kb">5.56e-10</span></div>
+                     <div class="output-item"><span class="output-label">[OH⁻] (M)</span><span class="output-value" id="ex97-res-oh">1.67e-5</span></div>
+                     <div class="output-item"><span class="output-label">pOH</span><span class="output-value" id="ex97-res-poh">4.78</span></div>
+                     <div class="output-item"><span class="output-label">pH</span><span class="output-value" id="ex97-res-ph">9.22</span></div>
+                     <div class="output-item md:col-span-2"><span class="output-label">Grau Hidròlisi (α)</span><span class="output-value" id="ex97-res-alpha">3.34e-5</span></div>
+                 </div>
+                 <div id="ex97-error" class="mt-4 text-center text-red-600 font-medium" style="min-height: 1.5rem;"></div>
+            </div>
+        </section>
+
+        <section id="ex105" class="mb-12 p-6 rounded-lg shadow-lg section-bg-white">
+            <h2 class="text-sky-700 border-b-2 border-sky-200 pb-2 mb-6">Exercici 105: Kps i Solubilitat de Ag₃PO₄</h2>
+            <p><strong>Enunciat:</strong> La solubilitat del fosfat de plata (Ag₃PO₄) en aigua a 25°C és de \(6.5 \times 10^{-3}\) g/L. Calculeu el seu producte de solubilitat (Kps) i la concentració molar d'ions plata dissolts. (Massa Molar Ag₃PO₄ ≈ 418.58 g/mol).</p>
+
+            <h3>Resolució Pas a Pas</h3>
+            <p>Primer, convertim la solubilitat de g/L a molaritat (mol/L), que anomenarem \(s\):</p>
+            <div class="math-block"> $$ s = \frac{6.5 \times 10^{-3} \, \text{g/L}}{418.58 \, \text{g/mol}} \approx 1.55 \times 10^{-5} \, \text{mol/L} $$ </div>
+            <p>L'equilibri de dissolució del fosfat de plata és:</p>
+            <div class="math-block"> $$ \text{Ag}_3\text{PO}_4(s) \rightleftharpoons 3\text{Ag}^+(aq) + \text{PO}_4^{3-}(aq) $$ </div>
+            <p>Si la solubilitat molar és \(s\), les concentracions en equilibri dels ions són:</p>
+            <ul class="list-disc list-inside pl-4 mb-4">
+                <li>\( [\text{Ag}^+] = 3s \)</li>
+                <li>\( [\text{PO}_4^{3-}] = s \)</li>
+            </ul>
+            <p>Calculem la concentració molar d'ions plata:</p>
+             <div class="math-block"> $$ [\text{Ag}^+] = 3s = 3 \times (1.55 \times 10^{-5} \, \text{M}) \approx 4.65 \times 10^{-5} \, \text{M} $$ </div>
+            <p>Ara calculem el producte de solubilitat (Kps):</p>
+             <div class="math-block"> $$ K_{ps} = [\text{Ag}^+]^3 [\text{PO}_4^{3-}] = (3s)^3 (s) = 27s^4 $$
+             $$ K_{ps} = 27 \times (1.55 \times 10^{-5})^4 = 27 \times (5.77 \times 10^{-20}) \approx 1.56 \times 10^{-18} $$ </div>
+
+            <div class="interactive-block-light">
+                 <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Calculadora Interactiva Kps Ag₃PO₄</h4>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                     <div>
+                         <label for="ex105-sol-gl">Solubilitat (g/L):</label>
+                         <input type="number" id="ex105-sol-gl" value="6.5e-3" step="1e-4">
+                     </div>
+                     <div>
+                         <label for="ex105-mm">Massa Molar Ag₃PO₄ (g/mol):</label>
+                         <input type="number" id="ex105-mm" value="418.58" step="0.01">
+                     </div>
+                 </div>
+                 <div class="text-center mb-4"><button id="ex105-calc-btn">Calcular Kps i [Ag⁺]</button></div>
+                 <div class="output-grid">
+                     <div class="output-item"><span class="output-label">Solubilitat Molar (s, M)</span><span class="output-value" id="ex105-res-s">1.55e-5</span></div>
+                     <div class="output-item"><span class="output-label">[Ag⁺] (M)</span><span class="output-value" id="ex105-res-ag">4.66e-5</span></div>
+                     <div class="output-item md:col-span-2"><span class="output-label">Kps</span><span class="output-value" id="ex105-res-kps">1.57e-18</span></div>
+                 </div>
+                  <div id="ex105-error" class="mt-4 text-center text-red-600 font-medium" style="min-height: 1.5rem;"></div>
+            </div>
+        </section>
+
+         <section id="ex106" class="mb-12 p-6 rounded-lg shadow-lg section-bg-light">
+             <h2 class="text-sky-700 border-b-2 border-sky-200 pb-2 mb-6">Exercici 106: Precipitació de AgCl</h2>
+             <p><strong>Enunciat:</strong> Es mesclen 50 mL de clorur sòdic 0,2M amb 50 mL de nitrat de plata 0,02M. Si el producte de solubilitat del clorur de plata val \(K_{ps}(\text{AgCl}) = 1.7 \times 10^{-10}\) a una determinada temperatura, calculeu: a) quants g de clorur de plata precipitaran de la solució b) quina concentració molar de catió plata hi haurà a la solució després que s'hagi format el precipitat. (Masses Molars: Ag=107.87, Cl=35.45 g/mol).</p>
+
+             <h3>Resolució Pas a Pas</h3>
+             <h4>1. Càlcul de mols inicials i concentracions després de barrejar</h4>
+             <p>Volum total = 50 mL + 50 mL = 100 mL = 0.1 L</p>
+             <p>Mols inicials de Cl⁻:</p>
+             <div class="math-block"> $$ n(\text{Cl}^-) = V_{\text{NaCl}} \times [\text{NaCl}] = (0.050 \, \text{L}) \times (0.2 \, \text{mol/L}) = 0.01 \, \text{mol} $$ </div>
+             <p>Mols inicials de Ag⁺:</p>
+              <div class="math-block"> $$ n(\text{Ag}^+) = V_{\text{AgNO}_3} \times [\text{AgNO}_3] = (0.050 \, \text{L}) \times (0.02 \, \text{mol/L}) = 0.001 \, \text{mol} $$ </div>
+             <p>Concentracions inicials (abans de precipitar) en el volum total (0.1 L):</p>
+              <div class="math-block"> $$ [\text{Cl}^-]_0 = \frac{0.01 \, \text{mol}}{0.1 \, \text{L}} = 0.1 \, \text{M} $$
+              $$ [\text{Ag}^+]_0 = \frac{0.001 \, \text{mol}}{0.1 \, \text{L}} = 0.01 \, \text{M} $$ </div>
+
+             <h4>2. Càlcul del producte iònic inicial (Qps)</h4>
+              <div class="math-block"> $$ Q_{ps} = [\text{Ag}^+]_0 [\text{Cl}^-]_0 = (0.01) \times (0.1) = 0.001 $$ </div>
+              <p>Com que \(Q_{ps} = 10^{-3} > K_{ps} = 1.7 \times 10^{-10}\), precipitarà AgCl.</p>
+
+             <h4>3. Càlcul de la quantitat precipitada (Assumim reacció completa)</h4>
+             <p>La reacció és \( \text{Ag}^+ + \text{Cl}^- \rightarrow \text{AgCl}(s) \). El reactiu limitant és Ag⁺ (0.001 mol).</p>
+             <p>Mols de AgCl precipitat = mols de Ag⁺ inicial = 0.001 mol.</p>
+             <p>Massa Molar AgCl = 107.87 + 35.45 = 143.32 g/mol.</p>
+             <p>Massa de AgCl precipitat:</p>
+              <div class="math-block"> $$ m(\text{AgCl}) = n(\text{AgCl}) \times MM(\text{AgCl}) = (0.001 \, \text{mol}) \times (143.32 \, \text{g/mol}) \approx 0.143 \, \text{g} $$ </div>
+
+             <h4>4. Càlcul de [Ag⁺] en equilibri</h4>
+             <p>Després de la precipitació (assumint completa), les concentracions serien aproximadament:</p>
+             <ul class="list-disc list-inside pl-4 mb-4">
+                 <li>\( [\text{Ag}^+] \approx 0 \) (tot ha precipitat)</li>
+                 <li>\( [\text{Cl}^-] = [\text{Cl}^-]_0 - [\text{Ag}^+]_0 = 0.1 - 0.01 = 0.09 \, \text{M} \) (Cl⁻ en excés)</li>
+             </ul>
+             <p>Ara considerem l'equilibri de solubilitat amb l'excés de Cl⁻:</p>
+              <div class="math-block"> $$ K_{ps} = [\text{Ag}^+][\text{Cl}^-] = [\text{Ag}^+] \times (0.09) = 1.7 \times 10^{-10} $$
+              $$ [\text{Ag}^+] = \frac{1.7 \times 10^{-10}}{0.09} \approx 1.89 \times 10^{-9} \, \text{M} $$ </div>
+
+             <div class="interactive-block">
+                  <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Simulador Precipitació AgCl</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div><label for="ex106-v-nacl">V NaCl (mL):</label><input type="number" id="ex106-v-nacl" value="50" step="1"></div>
+                      <div><label for="ex106-c-nacl">[NaCl] (M):</label><input type="number" id="ex106-c-nacl" value="0.2" step="0.01"></div>
+                      <div><label for="ex106-v-agno3">V AgNO₃ (mL):</label><input type="number" id="ex106-v-agno3" value="50" step="1"></div>
+                      <div><label for="ex106-c-agno3">[AgNO₃] (M):</label><input type="number" id="ex106-c-agno3" value="0.02" step="0.001"></div>
+                      <div><label for="ex106-kps">Kps(AgCl):</label><input type="number" id="ex106-kps" value="1.7e-10" step="1e-11"></div>
+                      <div><label for="ex106-mm-agcl">MM AgCl (g/mol):</label><input type="number" id="ex106-mm-agcl" value="143.32" step="0.01"></div>
+                  </div>
+                  <div class="text-center mb-4"><button id="ex106-calc-btn">Calcular Precipitació</button></div>
+                  <div class="output-grid">
+                      <div class="output-item"><span class="output-label">Qps Inicial</span><span class="output-value" id="ex106-res-qps">1.00e-3</span></div>
+                      <div class="output-item"><span class="output-label">Precipita?</span><span class="output-value" id="ex106-res-precipita">Sí</span></div>
+                      <div class="output-item"><span class="output-label">Massa AgCl (g)</span><span class="output-value" id="ex106-res-massa">0.143</span></div>
+                      <div class="output-item"><span class="output-label">[Ag⁺] final (M)</span><span class="output-value" id="ex106-res-ag-final">1.89e-9</span></div>
+                  </div>
+                   <div id="ex106-error" class="mt-4 text-center text-red-600 font-medium" style="min-height: 1.5rem;"></div>
+             </div>
+         </section>
+
+         <section id="ex107" class="mb-12 p-6 rounded-lg shadow-lg section-bg-white">
+             <h2 class="text-sky-700 border-b-2 border-sky-200 pb-2 mb-6">Exercici 107: Solubilitat de CaF₂</h2>
+             <p><strong>Enunciat:</strong> Es disposa d'una solució saturada de fluorur càlcic (CaF₂). Si el seu producte de solubilitat val \(K_{ps} = 3.9 \times 10^{-11}\), calculeu: a) la solubilitat del fluorur càlcic i les concentracions molars d'anió fluorur i de catió calci.</p>
+
+             <h3>Resolució Pas a Pas</h3>
+             <p>L'equilibri de dissolució és:</p>
+              <div class="math-block"> $$ \text{CaF}_2(s) \rightleftharpoons \text{Ca}^{2+}(aq) + 2\text{F}^-(aq) $$ </div>
+             <p>Si anomenem \(s\) la solubilitat molar del CaF₂, les concentracions en equilibri són:</p>
+             <ul class="list-disc list-inside pl-4 mb-4">
+                 <li>\( [\text{Ca}^{2+}] = s \)</li>
+                 <li>\( [\text{F}^{-}] = 2s \)</li>
+             </ul>
+             <p>Expressem el Kps:</p>
+              <div class="math-block"> $$ K_{ps} = [\text{Ca}^{2+}][\text{F}^{-}]^2 = (s)(2s)^2 = s \cdot 4s^2 = 4s^3 $$ </div>
+             <p>Aïllem i calculem \(s\):</p>
+              <div class="math-block"> $$ s^3 = \frac{K_{ps}}{4} = \frac{3.9 \times 10^{-11}}{4} = 9.75 \times 10^{-12} $$
+              $$ s = \sqrt[3]{9.75 \times 10^{-12}} \approx 2.14 \times 10^{-4} \, \text{mol/L} $$ </div>
+             <p>Ara calculem les concentracions iòniques:</p>
+              <div class="math-block"> $$ [\text{Ca}^{2+}] = s \approx 2.14 \times 10^{-4} \, \text{M} $$
+              $$ [\text{F}^{-}] = 2s = 2 \times (2.14 \times 10^{-4} \, \text{M}) \approx 4.28 \times 10^{-4} \, \text{M} $$ </div>
+
+             <div class="interactive-block-light">
+                  <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Calculadora Interactiva Solubilitat CaF₂</h4>
+                  <div class="grid grid-cols-1 gap-4 mb-4">
+                      <div>
+                          <label for="ex107-kps">Kps(CaF₂):</label>
+                          <input type="number" id="ex107-kps" value="3.9e-11" step="1e-12">
+                      </div>
+                  </div>
+                  <div class="text-center mb-4"><button id="ex107-calc-btn">Calcular Solubilitat i Concentracions</button></div>
+                  <div class="output-grid">
+                      <div class="output-item"><span class="output-label">Solubilitat (s, M)</span><span class="output-value" id="ex107-res-s">2.14e-4</span></div>
+                      <div class="output-item"><span class="output-label">[Ca²⁺] (M)</span><span class="output-value" id="ex107-res-ca">2.14e-4</span></div>
+                      <div class="output-item"><span class="output-label">[F⁻] (M)</span><span class="output-value" id="ex107-res-f">4.27e-4</span></div>
+                  </div>
+                   <div id="ex107-error" class="mt-4 text-center text-red-600 font-medium" style="min-height: 1.5rem;"></div>
+             </div>
+         </section>
+
+    </main>
+
+     <footer class="mt-16 pt-8 border-t border-gray-300 text-sm text-gray-600">
+         <p class="footer-attribution">Exercicis Resolts: Equilibri Àcid-Base i Solubilitat</p>
+     </footer>
+
+    <script>
+        const Kw = 1.0e-14;
+
+        function calculateEx95() {
+            const conc = parseFloat(document.getElementById('ex95-conc').value);
+            const ka = parseFloat(document.getElementById('ex95-ka').value);
+            const errorDiv = document.getElementById('ex95-error');
+            errorDiv.textContent = '';
+            try {
+                if (isNaN(conc) || isNaN(ka) || conc <= 0 || ka <= 0) throw new Error("Entrada invàlida.");
+                const kb = Kw / ka;
+                const oh = (-kb + Math.sqrt(kb*kb + 4*kb*conc)) / 2;
+                const poh = -Math.log10(oh);
+                const ph = 14 - poh;
+                document.getElementById('ex95-res-kb').textContent = kb.toExponential(2);
+                document.getElementById('ex95-res-oh').textContent = oh.toExponential(2);
+                document.getElementById('ex95-res-poh').textContent = poh.toFixed(2);
+                document.getElementById('ex95-res-ph').textContent = ph.toFixed(2);
+            } catch(e) { errorDiv.textContent = e.message; }
+        }
+
+        function calculateEx97() {
+            const conc = parseFloat(document.getElementById('ex97-conc').value);
+            const ka = parseFloat(document.getElementById('ex97-ka').value);
+            const errorDiv = document.getElementById('ex97-error');
+            errorDiv.textContent = '';
+            try {
+                if (isNaN(conc) || isNaN(ka) || conc <= 0 || ka <= 0) throw new Error("Entrada invàlida.");
+                const kb = Kw / ka;
+                const oh = (-kb + Math.sqrt(kb*kb + 4*kb*conc)) / 2;
+                const poh = -Math.log10(oh);
+                const ph = 14 - poh;
+                const alpha = oh / conc;
+                document.getElementById('ex97-res-kb').textContent = kb.toExponential(2);
+                document.getElementById('ex97-res-oh').textContent = oh.toExponential(2);
+                document.getElementById('ex97-res-poh').textContent = poh.toFixed(2);
+                document.getElementById('ex97-res-ph').textContent = ph.toFixed(2);
+                document.getElementById('ex97-res-alpha').textContent = alpha.toExponential(2);
+            } catch(e) { errorDiv.textContent = e.message; }
+        }
+
+         function calculateEx105() {
+            const sol_gl = parseFloat(document.getElementById('ex105-sol-gl').value);
+            const mm = parseFloat(document.getElementById('ex105-mm').value);
+            const errorDiv = document.getElementById('ex105-error');
+            errorDiv.textContent = '';
+            try {
+                if (isNaN(sol_gl) || isNaN(mm) || sol_gl <= 0 || mm <= 0) throw new Error("Entrada invàlida.");
+                const s = sol_gl / mm;
+                const ag_conc = 3 * s;
+                const kps = 27 * Math.pow(s, 4);
+                document.getElementById('ex105-res-s').textContent = s.toExponential(2);
+                document.getElementById('ex105-res-ag').textContent = ag_conc.toExponential(2);
+                document.getElementById('ex105-res-kps').textContent = kps.toExponential(2);
+            } catch(e) { errorDiv.textContent = e.message; }
+        }
+
+         function calculateEx106() {
+            const v_nacl_ml = parseFloat(document.getElementById('ex106-v-nacl').value);
+            const c_nacl = parseFloat(document.getElementById('ex106-c-nacl').value);
+            const v_agno3_ml = parseFloat(document.getElementById('ex106-v-agno3').value);
+            const c_agno3 = parseFloat(document.getElementById('ex106-c-agno3').value);
+            const kps = parseFloat(document.getElementById('ex106-kps').value);
+            const mm_agcl = parseFloat(document.getElementById('ex106-mm-agcl').value);
+            const errorDiv = document.getElementById('ex106-error');
+            errorDiv.textContent = '';
+            try {
+                if (isNaN(v_nacl_ml) || isNaN(c_nacl) || isNaN(v_agno3_ml) || isNaN(c_agno3) || isNaN(kps) || isNaN(mm_agcl) ||
+                    v_nacl_ml <= 0 || c_nacl <= 0 || v_agno3_ml <= 0 || c_agno3 <= 0 || kps <= 0 || mm_agcl <= 0) throw new Error("Entrada invàlida.");
+
+                const v_total_l = (v_nacl_ml + v_agno3_ml) / 1000;
+                const n_cl_init = (v_nacl_ml / 1000) * c_nacl;
+                const n_ag_init = (v_agno3_ml / 1000) * c_agno3;
+                const c_cl_0 = n_cl_init / v_total_l;
+                const c_ag_0 = n_ag_init / v_total_l;
+
+                const qps = c_ag_0 * c_cl_0;
+                const precipita = qps > kps;
+                let massa_agcl = 0;
+                let ag_final = c_ag_0;
+                let cl_final = c_cl_0;
+
+                if (precipita) {
+                    const n_precip = Math.min(n_ag_init, n_cl_init);
+                    massa_agcl = n_precip * mm_agcl;
+                    const n_ag_eq_approx = Math.max(0, n_ag_init - n_precip);
+                    const n_cl_eq_approx = Math.max(0, n_cl_init - n_precip);
+                    const c_cl_excess = n_cl_eq_approx / v_total_l;
+                    if (c_cl_excess > 1e-9) {
+                         ag_final = kps / c_cl_excess;
+                    } else {
+                         ag_final = Math.sqrt(kps);
+                    }
+                    cl_final = c_cl_excess + ag_final;
+                }
+
+                document.getElementById('ex106-res-qps').textContent = qps.toExponential(2);
+                document.getElementById('ex106-res-precipita').textContent = precipita ? "Sí" : "No";
+                document.getElementById('ex106-res-massa').textContent = massa_agcl.toFixed(3);
+                document.getElementById('ex106-res-ag-final').textContent = ag_final.toExponential(2);
+
+            } catch(e) { errorDiv.textContent = e.message; }
+        }
+
+         function calculateEx107() {
+            const kps = parseFloat(document.getElementById('ex107-kps').value);
+            const errorDiv = document.getElementById('ex107-error');
+            errorDiv.textContent = '';
+             try {
+                 if (isNaN(kps) || kps <= 0) throw new Error("Kps invàlid.");
+                 const s = Math.cbrt(kps / 4);
+                 const ca_conc = s;
+                 const f_conc = 2 * s;
+                 document.getElementById('ex107-res-s').textContent = s.toExponential(2);
+                 document.getElementById('ex107-res-ca').textContent = ca_conc.toExponential(2);
+                 document.getElementById('ex107-res-f').textContent = f_conc.toExponential(2);
+             } catch(e) { errorDiv.textContent = e.message; }
+         }
+
+        document.getElementById('ex95-calc-btn')?.addEventListener('click', calculateEx95);
+        document.getElementById('ex97-calc-btn')?.addEventListener('click', calculateEx97);
+        document.getElementById('ex105-calc-btn')?.addEventListener('click', calculateEx105);
+        document.getElementById('ex106-calc-btn')?.addEventListener('click', calculateEx106);
+        document.getElementById('ex107-calc-btn')?.addEventListener('click', calculateEx107);
+
+        window.addEventListener('load', () => {
+            calculateEx95();
+            calculateEx97();
+            calculateEx105();
+            calculateEx106();
+            calculateEx107();
+        });
+
+    </script>
+
+</body>
+</html>
 
