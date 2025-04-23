@@ -12,6 +12,9 @@
     <style>
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #f8fafc; }
         label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151; font-size: 0.875rem; }
+        input[type="range"] { width: 100%; cursor: pointer; accent-color: #0ea5e9; height: 8px; background-color: #e0f2fe; border-radius: 9999px; appearance: none; -webkit-appearance: none; }
+        input[type="range"]::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 16px; height: 16px; background: #0ea5e9; border-radius: 50%; cursor: pointer; }
+        input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; background: #0ea5e9; border-radius: 50%; cursor: pointer; border: none; }
         input[type="number"], select { padding: 0.5rem; border: 1px solid #D1D5DB; border-radius: 0.375rem; width: 100%; }
         button { background-color: #38bdf8; color: #0c4a6e; padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 600; transition: background-color 0.2s; display: inline-block; text-align: center; border: none; cursor: pointer;}
         button:hover { background-color: #0ea5e9; }
@@ -37,6 +40,9 @@
         th, td { border: 1px solid #e0f2fe; padding: 0.5rem; text-align: left; }
         th { background-color: #f0f9ff; font-weight: 600; color: #0369a1; }
         tbody tr:nth-child(even) { background-color: #f0f9ff; }
+        .slider-container div { margin-bottom: 1rem;}
+        .slider-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;}
+        .slider-label span:last-child { font-size: 0.9rem; font-weight: 500; color: #075985; min-width: 70px; text-align: right;}
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 antialiased">
@@ -66,13 +72,20 @@
             <p>Càlcul de pOH i pH:</p>
             <div class="math-block"> $$ \text{pOH} = -\log_{10}(2.58 \times 10^{-4}) \approx 3.59 $$
             $$ \text{pH} = 14 - \text{pOH} \approx 10.41 $$ </div>
-            <div class="interactive-block-light">
+            <div class="interactive-block-light slider-container">
                  <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Calculadora Interactiva pH NaClO</h4>
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                     <div><label for="ex95-conc">Concentració NaClO (M):</label><input type="number" id="ex95-conc" value="0.2" step="0.01" min="0.01"></div>
-                     <div><label for="ex95-ka">Ka(HClO):</label><input type="number" id="ex95-ka" value="3.0e-8" step="1e-9"></div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                     <div>
+                         <div class="slider-label"><label for="ex95-conc-slider">Concentració NaClO (M):</label><span id="ex95-conc-value">0.20</span></div>
+                         <input type="range" id="ex95-conc-slider" min="0.01" max="1.0" value="0.2" step="0.01">
+                     </div>
+                     <div>
+                          <div class="slider-label"><label for="ex95-ka-slider">Log(Ka(HClO)):</label><span id="ex95-ka-value">-7.52</span></div>
+                          <input type="range" id="ex95-ka-slider" min="-9" max="-6" value="-7.52" step="0.01">
+                          <p class="text-xs text-gray-500 text-right">Ka ≈ <span id="ex95-ka-display">3.0e-8</span></p>
+                     </div>
                  </div>
-                 <div class="text-center mb-4"><button id="ex95-calc-btn">Calcular pH</button></div>
+                 <div class="text-center mb-4"><button id="ex95-calc-btn">Recalcular pH</button></div>
                  <div class="output-grid">
                      <div class="output-item"><span class="output-label">Kb(ClO⁻)</span><span class="output-value" id="ex95-res-kb">3.33e-7</span></div>
                      <div class="output-item"><span class="output-label">[OH⁻] (M)</span><span class="output-value" id="ex95-res-oh">2.58e-4</span></div>
@@ -93,13 +106,20 @@
              <p>Càlcul de x = [OH⁻]: \( x = \sqrt{K_b \times 0.5} = \sqrt{(5.56 \times 10^{-10}) \times 0.5} \approx 1.67 \times 10^{-5} \, M \)</p>
              <p>Càlcul de pOH i pH: \( \text{pOH} = -\log_{10}(1.67 \times 10^{-5}) \approx 4.78 \), \( \text{pH} = 14 - 4.78 \approx 9.22 \)</p>
              <p>Grau d'hidròlisi: \( \alpha = x / C_s = (1.67 \times 10^{-5}) / 0.5 \approx 3.34 \times 10^{-5} \)</p>
-            <div class="interactive-block">
+            <div class="interactive-block slider-container">
                  <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Calculadora Interactiva pH i Hidròlisi CH₃COONa</h4>
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                     <div><label for="ex97-conc">Concentració CH₃COONa (M):</label><input type="number" id="ex97-conc" value="0.5" step="0.05" min="0.01"></div>
-                     <div><label for="ex97-ka">Ka(CH₃COOH):</label><input type="number" id="ex97-ka" value="1.8e-5" step="1e-6"></div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                     <div>
+                         <div class="slider-label"><label for="ex97-conc-slider">Concentració CH₃COONa (M):</label><span id="ex97-conc-value">0.50</span></div>
+                         <input type="range" id="ex97-conc-slider" min="0.01" max="2.0" value="0.5" step="0.01">
+                     </div>
+                     <div>
+                         <div class="slider-label"><label for="ex97-ka-slider">Log(Ka(CH₃COOH)):</label><span id="ex97-ka-value">-4.74</span></div>
+                         <input type="range" id="ex97-ka-slider" min="-6" max="-3" value="-4.74" step="0.01">
+                         <p class="text-xs text-gray-500 text-right">Ka ≈ <span id="ex97-ka-display">1.8e-5</span></p>
+                     </div>
                  </div>
-                 <div class="text-center mb-4"><button id="ex97-calc-btn">Calcular pH i α</button></div>
+                 <div class="text-center mb-4"><button id="ex97-calc-btn">Recalcular pH i α</button></div>
                  <div class="output-grid">
                      <div class="output-item"><span class="output-label">Kb(CH₃COO⁻)</span><span class="output-value" id="ex97-res-kb">5.56e-10</span></div>
                      <div class="output-item"><span class="output-label">[OH⁻] (M)</span><span class="output-value" id="ex97-res-oh">1.67e-5</span></div>
@@ -119,15 +139,15 @@
             <p>Relació Kps i solubilitat (s): \( K_{ps} = [\text{Ag}^+]^3 [\text{PO}_4^{3-}] = (3s)^3 (s) = 27s^4 \)</p>
             <p>Solubilitat molar: \( s = \sqrt[4]{\frac{K_{ps}(T)}{27}} \)</p>
             <p>Concentracions iòniques: \( [\text{Ag}^+] = 3s \), \( [\text{PO}_4^{3-}] = s \)</p>
-            <div class="interactive-block-light">
+            <div class="interactive-block-light slider-container">
                  <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Calculadora Interactiva Solubilitat Ag₃PO₄ vs T</h4>
                  <div class="grid grid-cols-1 gap-4 mb-4">
                       <div>
-                         <label for="ex105-temp">Temperatura (°C):</label>
-                         <input type="number" id="ex105-temp" value="25" step="1">
+                         <div class="slider-label"><label for="ex105-temp-slider">Temperatura (°C):</label><span id="ex105-temp-value">25</span></div>
+                         <input type="range" id="ex105-temp-slider" value="25" min="0" max="100" step="1">
                      </div>
                  </div>
-                 <div class="text-center mb-4"><button id="ex105-calc-btn">Calcular Kps(T), s i Concentracions</button></div>
+                 <div class="text-center mb-4"><button id="ex105-calc-btn">Recalcular Kps(T), s i Concentracions</button></div>
                  <div class="output-grid">
                      <div class="output-item"><span class="output-label">Kps(T) (Estimat)</span><span class="output-value" id="ex105-res-kps">1.56e-18</span></div>
                      <div class="output-item"><span class="output-label">Solubilitat (s, M)</span><span class="output-value" id="ex105-res-s">1.55e-5</span></div>
@@ -148,17 +168,36 @@
              <p>3. Producte iònic: \( Q_{ps} = (0.01)(0.1) = 10^{-3} \). Com \( Q_{ps} > K_{ps} \), precipita AgCl.</p>
              <p>4. Precipitació (Ag⁺ limitant): Mols AgCl = 0.001 mol. Massa AgCl = \( 0.001 \times 143.32 \approx 0.143 \, g \).</p>
              <p>5. [Ag⁺] en equilibri: Després de precipitar, \( [\text{Cl}^-] \approx (0.01 - 0.001) / 0.1 = 0.09 \, M \). \( K_{ps} = [\text{Ag}^+][\text{Cl}^-] \implies [\text{Ag}^+] = K_{ps} / 0.09 = (1.7 \times 10^{-10}) / 0.09 \approx 1.89 \times 10^{-9} \, M \).</p>
-             <div class="interactive-block">
+             <div class="interactive-block slider-container">
                   <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Simulador Precipitació AgCl</h4>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div><label for="ex106-v-nacl">V NaCl (mL):</label><input type="number" id="ex106-v-nacl" value="50" step="1"></div>
-                      <div><label for="ex106-c-nacl">[NaCl] (M):</label><input type="number" id="ex106-c-nacl" value="0.2" step="0.01"></div>
-                      <div><label for="ex106-v-agno3">V AgNO₃ (mL):</label><input type="number" id="ex106-v-agno3" value="50" step="1"></div>
-                      <div><label for="ex106-c-agno3">[AgNO₃] (M):</label><input type="number" id="ex106-c-agno3" value="0.02" step="0.001"></div>
-                      <div><label for="ex106-kps">Kps(AgCl):</label><input type="number" id="ex106-kps" value="1.7e-10" step="1e-11"></div>
-                      <div><label for="ex106-mm-agcl">MM AgCl (g/mol):</label><input type="number" id="ex106-mm-agcl" value="143.32" step="0.01"></div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                      <div>
+                          <div class="slider-label"><label for="ex106-v-nacl-slider">V NaCl (mL):</label><span id="ex106-v-nacl-value">50</span></div>
+                          <input type="range" id="ex106-v-nacl-slider" min="1" max="100" value="50" step="1">
+                      </div>
+                      <div>
+                          <div class="slider-label"><label for="ex106-c-nacl-slider">[NaCl] (M):</label><span id="ex106-c-nacl-value">0.20</span></div>
+                          <input type="range" id="ex106-c-nacl-slider" min="0.01" max="0.5" value="0.2" step="0.01">
+                      </div>
+                      <div>
+                          <div class="slider-label"><label for="ex106-v-agno3-slider">V AgNO₃ (mL):</label><span id="ex106-v-agno3-value">50</span></div>
+                          <input type="range" id="ex106-v-agno3-slider" min="1" max="100" value="50" step="1">
+                      </div>
+                      <div>
+                          <div class="slider-label"><label for="ex106-c-agno3-slider">[AgNO₃] (M):</label><span id="ex106-c-agno3-value">0.020</span></div>
+                          <input type="range" id="ex106-c-agno3-slider" min="0.001" max="0.1" value="0.02" step="0.001">
+                      </div>
+                      <div>
+                          <div class="slider-label"><label for="ex106-kps-slider">Log(Kps(AgCl)):</label><span id="ex106-kps-value">-9.77</span></div>
+                          <input type="range" id="ex106-kps-slider" min="-11" max="-8" value="-9.77" step="0.01">
+                          <p class="text-xs text-gray-500 text-right">Kps ≈ <span id="ex106-kps-display">1.7e-10</span></p>
+                      </div>
+                      <div>
+                          <div class="slider-label"><label for="ex106-mm-agcl-slider">MM AgCl (g/mol):</label><span id="ex106-mm-agcl-value">143.32</span></div>
+                          <input type="range" id="ex106-mm-agcl-slider" min="140" max="150" value="143.32" step="0.01">
+                      </div>
                   </div>
-                  <div class="text-center mb-4"><button id="ex106-calc-btn">Calcular Precipitació</button></div>
+                  <div class="text-center mb-4"><button id="ex106-calc-btn">Recalcular Precipitació</button></div>
                   <div class="output-grid">
                       <div class="output-item"><span class="output-label">Qps Inicial</span><span class="output-value" id="ex106-res-qps">1.00e-3</span></div>
                       <div class="output-item"><span class="output-label">Precipita?</span><span class="output-value" id="ex106-res-precipita">Sí</span></div>
@@ -178,15 +217,16 @@
              <p>Kps: \( K_{ps} = [\text{Ca}^{2+}][\text{F}^{-}]^2 = (s)(2s)^2 = 4s^3 \)</p>
              <p>Càlcul de s: \( s = \sqrt[3]{K_{ps}/4} = \sqrt[3]{(3.9 \times 10^{-11})/4} \approx 2.14 \times 10^{-4} \, M \)</p>
              <p>Concentracions iòniques: \( [\text{Ca}^{2+}] = s \approx 2.14 \times 10^{-4} \, M \); \( [\text{F}^{-}] = 2s \approx 4.28 \times 10^{-4} \, M \)</p>
-             <div class="interactive-block-light">
+             <div class="interactive-block-light slider-container">
                   <h4 class="text-lg font-semibold mb-3 text-center text-sky-700">Calculadora Interactiva Solubilitat CaF₂</h4>
                   <div class="grid grid-cols-1 gap-4 mb-4">
                       <div>
-                          <label for="ex107-kps">Kps(CaF₂):</label>
-                          <input type="number" id="ex107-kps" value="3.9e-11" step="1e-12">
+                         <div class="slider-label"><label for="ex107-kps-slider">Log(Kps(CaF₂)):</label><span id="ex107-kps-value">-10.41</span></div>
+                         <input type="range" id="ex107-kps-slider" min="-12" max="-9" value="-10.41" step="0.01">
+                         <p class="text-xs text-gray-500 text-right">Kps ≈ <span id="ex107-kps-display">3.9e-11</span></p>
                       </div>
                   </div>
-                  <div class="text-center mb-4"><button id="ex107-calc-btn">Calcular Solubilitat i Concentracions</button></div>
+                  <div class="text-center mb-4"><button id="ex107-calc-btn">Recalcular Solubilitat i Concentracions</button></div>
                   <div class="output-grid">
                       <div class="output-item"><span class="output-label">Solubilitat (s, M)</span><span class="output-value" id="ex107-res-s">2.14e-4</span></div>
                       <div class="output-item"><span class="output-label">[Ca²⁺] (M)</span><span class="output-value" id="ex107-res-ca">2.14e-4</span></div>
@@ -205,19 +245,45 @@
     <script>
         const Kw = 1.0e-14;
 
+        function setupSlider(sliderId, valueSpanId, options = {}) {
+            const slider = document.getElementById(sliderId);
+            const valueSpan = document.getElementById(valueSpanId);
+            if (!slider || !valueSpan) return;
+
+            const updateFunc = options.callback || (() => {});
+            const formatFunc = options.format || ((val) => parseFloat(val).toFixed(options.decimals || 2));
+            const valueAttr = options.valueAttr || 'value';
+
+            const updateDisplayAndCalc = () => {
+                valueSpan.textContent = formatFunc(slider[valueAttr]);
+                if(options.displayId) {
+                    const displayEl = document.getElementById(options.displayId);
+                    if(displayEl) displayEl.textContent = Math.pow(10, parseFloat(slider[valueAttr])).toExponential(1);
+                }
+                updateFunc();
+            };
+
+            slider.addEventListener('input', updateDisplayAndCalc);
+            valueSpan.textContent = formatFunc(slider[valueAttr]);
+             if(options.displayId) {
+                 const displayEl = document.getElementById(options.displayId);
+                 if(displayEl) displayEl.textContent = Math.pow(10, parseFloat(slider[valueAttr])).toExponential(1);
+             }
+        }
+
         function calculateEx95() {
-            const concEl = document.getElementById('ex95-conc');
-            const kaEl = document.getElementById('ex95-ka');
+            const concSlider = document.getElementById('ex95-conc-slider');
+            const kaSlider = document.getElementById('ex95-ka-slider');
             const errorDiv = document.getElementById('ex95-error');
             const kbRes = document.getElementById('ex95-res-kb');
             const ohRes = document.getElementById('ex95-res-oh');
             const pohRes = document.getElementById('ex95-res-poh');
             const phRes = document.getElementById('ex95-res-ph');
-            if(!concEl || !kaEl || !errorDiv || !kbRes || !ohRes || !pohRes || !phRes) return;
+            if(!concSlider || !kaSlider || !errorDiv || !kbRes || !ohRes || !pohRes || !phRes) return;
             errorDiv.textContent = '';
             try {
-                const conc = parseFloat(concEl.value);
-                const ka = parseFloat(kaEl.value);
+                const conc = parseFloat(concSlider.value);
+                const ka = Math.pow(10, parseFloat(kaSlider.value));
                 if (isNaN(conc) || isNaN(ka) || conc <= 0 || ka <= 0) throw new Error("Entrada invàlida.");
                 const kb = Kw / ka;
                 const oh = (-kb + Math.sqrt(kb*kb + 4*kb*conc)) / 2;
@@ -235,18 +301,18 @@
         }
 
         function calculateEx97() {
-            const concEl = document.getElementById('ex97-conc');
-            const kaEl = document.getElementById('ex97-ka');
+            const concSlider = document.getElementById('ex97-conc-slider');
+            const kaSlider = document.getElementById('ex97-ka-slider');
             const errorDiv = document.getElementById('ex97-error');
             const kbRes = document.getElementById('ex97-res-kb');
             const ohRes = document.getElementById('ex97-res-oh');
             const phRes = document.getElementById('ex97-res-ph');
             const alphaRes = document.getElementById('ex97-res-alpha');
-             if(!concEl || !kaEl || !errorDiv || !kbRes || !ohRes || !phRes || !alphaRes) return;
+             if(!concSlider || !kaSlider || !errorDiv || !kbRes || !ohRes || !phRes || !alphaRes) return;
             errorDiv.textContent = '';
             try {
-                const conc = parseFloat(concEl.value);
-                const ka = parseFloat(kaEl.value);
+                const conc = parseFloat(concSlider.value);
+                const ka = Math.pow(10, parseFloat(kaSlider.value));
                  if (isNaN(conc) || isNaN(ka) || conc <= 0 || ka <= 0) throw new Error("Entrada invàlida.");
                 const kb = Kw / ka;
                 const oh = (-kb + Math.sqrt(kb*kb + 4*kb*conc)) / 2;
@@ -265,25 +331,22 @@
         }
 
          function calculateEx105() {
-            const tempEl = document.getElementById('ex105-temp');
+            const tempSlider = document.getElementById('ex105-temp-slider');
             const errorDiv = document.getElementById('ex105-error');
             const kpsRes = document.getElementById('ex105-res-kps');
             const sRes = document.getElementById('ex105-res-s');
             const agRes = document.getElementById('ex105-res-ag');
             const po4Res = document.getElementById('ex105-res-po4');
-             if(!tempEl || !errorDiv || !kpsRes || !sRes || !agRes || !po4Res) return;
+             if(!tempSlider || !errorDiv || !kpsRes || !sRes || !agRes || !po4Res) return;
             errorDiv.textContent = '';
             try {
-                const tempC = parseFloat(tempEl.value);
+                const tempC = parseFloat(tempSlider.value);
                 if (isNaN(tempC)) throw new Error("Temperatura invàlida.");
-
                 const kps_ref = 1.56e-18;
                 const temp_ref = 25;
                 const factor_temp = 0.02;
                 const kps = kps_ref * Math.pow(10, factor_temp * (tempC - temp_ref));
-
                 if (kps <= 0 || !isFinite(kps)) throw new Error("Kps calculat invàlid.");
-
                 const s = Math.pow(kps / 27, 1/4);
                 const ag_conc = 3 * s;
                 const po4_conc = s;
@@ -299,27 +362,27 @@
         }
 
          function calculateEx106() {
-            const vNaclEl = document.getElementById('ex106-v-nacl');
-            const cNaclEl = document.getElementById('ex106-c-nacl');
-            const vAgno3El = document.getElementById('ex106-v-agno3');
-            const cAgno3El = document.getElementById('ex106-c-agno3');
-            const kpsEl = document.getElementById('ex106-kps');
-            const mmAgclEl = document.getElementById('ex106-mm-agcl');
+            const vNaclSlider = document.getElementById('ex106-v-nacl-slider');
+            const cNaclSlider = document.getElementById('ex106-c-nacl-slider');
+            const vAgno3Slider = document.getElementById('ex106-v-agno3-slider');
+            const cAgno3Slider = document.getElementById('ex106-c-agno3-slider');
+            const kpsSlider = document.getElementById('ex106-kps-slider');
+            const mmAgclSlider = document.getElementById('ex106-mm-agcl-slider');
             const errorDiv = document.getElementById('ex106-error');
             const qpsRes = document.getElementById('ex106-res-qps');
             const precipitaRes = document.getElementById('ex106-res-precipita');
             const massaRes = document.getElementById('ex106-res-massa');
             const agFinalRes = document.getElementById('ex106-res-ag-final');
-            if(!vNaclEl || !cNaclEl || !vAgno3El || !cAgno3El || !kpsEl || !mmAgclEl || !errorDiv || !qpsRes || !precipitaRes || !massaRes || !agFinalRes) return;
+            if(!vNaclSlider || !cNaclSlider || !vAgno3Slider || !cAgno3Slider || !kpsSlider || !mmAgclSlider || !errorDiv || !qpsRes || !precipitaRes || !massaRes || !agFinalRes) return;
             errorDiv.textContent = '';
 
             try {
-                const v_nacl_ml = parseFloat(vNaclEl.value);
-                const c_nacl = parseFloat(cNaclEl.value);
-                const v_agno3_ml = parseFloat(vAgno3El.value);
-                const c_agno3 = parseFloat(cAgno3El.value);
-                const kps = parseFloat(kpsEl.value);
-                const mm_agcl = parseFloat(mmAgclEl.value);
+                const v_nacl_ml = parseFloat(vNaclSlider.value);
+                const c_nacl = parseFloat(cNaclSlider.value);
+                const v_agno3_ml = parseFloat(vAgno3Slider.value);
+                const c_agno3 = parseFloat(cAgno3Slider.value);
+                const kps = Math.pow(10, parseFloat(kpsSlider.value));
+                const mm_agcl = parseFloat(mmAgclSlider.value);
 
                 if (isNaN(v_nacl_ml) || isNaN(c_nacl) || isNaN(v_agno3_ml) || isNaN(c_agno3) || isNaN(kps) || isNaN(mm_agcl) ||
                     v_nacl_ml <= 0 || c_nacl <= 0 || v_agno3_ml <= 0 || c_agno3 <= 0 || kps <= 0 || mm_agcl <= 0) throw new Error("Entrada invàlida.");
@@ -350,10 +413,11 @@
                          ag_final = kps / c_cl_excess;
                     } else if (c_ag_excess > 1e-9) {
                          ag_final = c_ag_excess;
+                         cl_final = kps / ag_final;
                     } else {
                          ag_final = Math.sqrt(kps);
+                         cl_final = ag_final;
                     }
-                    cl_final = c_cl_excess + ag_final;
                 }
 
                 qpsRes.textContent = qps.toExponential(2);
@@ -368,15 +432,15 @@
         }
 
          function calculateEx107() {
-            const kpsEl = document.getElementById('ex107-kps');
+            const kpsSlider = document.getElementById('ex107-kps-slider');
             const errorDiv = document.getElementById('ex107-error');
             const sRes = document.getElementById('ex107-res-s');
             const caRes = document.getElementById('ex107-res-ca');
             const fRes = document.getElementById('ex107-res-f');
-             if(!kpsEl || !errorDiv || !sRes || !caRes || !fRes) return;
+             if(!kpsSlider || !errorDiv || !sRes || !caRes || !fRes) return;
             errorDiv.textContent = '';
              try {
-                 const kps = parseFloat(kpsEl.value);
+                 const kps = Math.pow(10, parseFloat(kpsSlider.value));
                  if (isNaN(kps) || kps <= 0) throw new Error("Kps invàlid.");
                  const s = Math.cbrt(kps / 4);
                  const ca_conc = s;
@@ -390,6 +454,19 @@
                  sRes.textContent = "Error"; caRes.textContent = "Error"; fRes.textContent = "Error";
              }
          }
+
+        setupSlider('ex95-conc-slider', 'ex95-conc-value', {decimals: 2, callback: calculateEx95});
+        setupSlider('ex95-ka-slider', 'ex95-ka-value', {decimals: 2, displayId: 'ex95-ka-display', callback: calculateEx95});
+        setupSlider('ex97-conc-slider', 'ex97-conc-value', {decimals: 2, callback: calculateEx97});
+        setupSlider('ex97-ka-slider', 'ex97-ka-value', {decimals: 2, displayId: 'ex97-ka-display', callback: calculateEx97});
+        setupSlider('ex105-temp-slider', 'ex105-temp-value', {decimals: 0, callback: calculateEx105});
+        setupSlider('ex106-v-nacl-slider', 'ex106-v-nacl-value', {decimals: 0, callback: calculateEx106});
+        setupSlider('ex106-c-nacl-slider', 'ex106-c-nacl-value', {decimals: 2, callback: calculateEx106});
+        setupSlider('ex106-v-agno3-slider', 'ex106-v-agno3-value', {decimals: 0, callback: calculateEx106});
+        setupSlider('ex106-c-agno3-slider', 'ex106-c-agno3-value', {decimals: 3, callback: calculateEx106});
+        setupSlider('ex106-kps-slider', 'ex106-kps-value', {decimals: 2, displayId: 'ex106-kps-display', callback: calculateEx106});
+        setupSlider('ex106-mm-agcl-slider', 'ex106-mm-agcl-value', {decimals: 2, callback: calculateEx106});
+        setupSlider('ex107-kps-slider', 'ex107-kps-value', {decimals: 2, displayId: 'ex107-kps-display', callback: calculateEx107});
 
         document.getElementById('ex95-calc-btn')?.addEventListener('click', calculateEx95);
         document.getElementById('ex97-calc-btn')?.addEventListener('click', calculateEx97);
@@ -406,6 +483,10 @@
         });
 
     </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
