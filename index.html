@@ -240,10 +240,9 @@
             const errorDiv = document.getElementById('ex97-error');
             const kbRes = document.getElementById('ex97-res-kb');
             const ohRes = document.getElementById('ex97-res-oh');
-            const pohRes = document.getElementById('ex97-res-poh');
             const phRes = document.getElementById('ex97-res-ph');
             const alphaRes = document.getElementById('ex97-res-alpha');
-             if(!concEl || !kaEl || !errorDiv || !kbRes || !ohRes || !pohRes || !phRes || !alphaRes) return;
+             if(!concEl || !kaEl || !errorDiv || !kbRes || !ohRes || !phRes || !alphaRes) return;
             errorDiv.textContent = '';
             try {
                 const conc = parseFloat(concEl.value);
@@ -257,12 +256,11 @@
                 const alpha = oh / conc;
                 kbRes.textContent = kb.toExponential(2);
                 ohRes.textContent = oh.toExponential(2);
-                pohRes.textContent = "N/A";
                 phRes.textContent = ph.toFixed(2);
                 alphaRes.textContent = alpha.toExponential(2);
             } catch(e) {
                  errorDiv.textContent = e.message;
-                 kbRes.textContent = "Error"; ohRes.textContent = "Error"; pohRes.textContent = "Error"; phRes.textContent = "Error"; alphaRes.textContent = "Error";
+                 kbRes.textContent = "Error"; ohRes.textContent = "Error"; phRes.textContent = "Error"; alphaRes.textContent = "Error";
             }
         }
 
@@ -411,4 +409,3 @@
 
 </body>
 </html>
-
